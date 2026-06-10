@@ -2,7 +2,7 @@
 
 An automatic plant watering system built with Arduino Uno.
 
-The system monitors soil moisture and water tank level, then automatically activates a water pump when the soil becomes dry. A 16x2 LCD displays real-time system information including soil moisture, water level, and pump status.
+The system continuously monitors soil moisture and water tank level, then automatically activates a water pump when the soil becomes dry. A 16x2 LCD provides real-time feedback on moisture level, water status, and pump operation.
 
 ---
 
@@ -10,11 +10,11 @@ The system monitors soil moisture and water tank level, then automatically activ
 
 * Automatic plant watering
 * Soil moisture monitoring
-* Water tank level monitoring
-* LCD1602 I2C display
+* Water level monitoring
+* LCD1602 I2C user interface
 * Relay-controlled water pump
-* Dry-run protection (prevents pump operation when water is insufficient)
-* Hysteresis control to avoid rapid relay switching
+* Dry-run protection
+* Hysteresis control for stable operation
 
 ---
 
@@ -27,7 +27,7 @@ The system monitors soil moisture and water tank level, then automatically activ
 | Soil Moisture Sensor   | 1        |
 | Water Level Sensor     | 1        |
 | 1-Channel Relay Module | 1        |
-| Mini Water Pump (3–6V) | 1        |
+| DC Water Pump (3–6V)   | 1        |
 | Silicone Tube          | 1        |
 | Breadboard             | 1        |
 | Jumper Wires           | Several  |
@@ -48,9 +48,20 @@ The pump starts when:
 The pump stops when:
 
 * Soil moisture > 45%
-* Water level is too low
+* Water level is below the safety threshold
 
-This hysteresis design prevents frequent ON/OFF switching.
+This hysteresis-based design prevents rapid relay switching and improves system stability.
+
+---
+
+## Water Level Status
+
+| Status | Sensor Value |
+| ------ | ------------ |
+| NONE   | < 400        |
+| LOW    | 400 - 599    |
+| MED    | 600 - 659    |
+| HIGH   | ≥ 660        |
 
 ---
 
@@ -66,15 +77,27 @@ This hysteresis design prevents frequent ON/OFF switching.
 
 ---
 
+## LCD Display States
+
+### Startup
+
+![LCD Soil Dry](images/lcd_soil_dry.jpg)
+
+### Normal Operation
+
+![LCD Soil OK](images/lcd_soil_ok.jpg)
+
+### Watering Mode
+
+![LCD Watering](images/lcd_watering.jpg)
+
+---
+
 ## Project Photos
 
 ### Full System Overview
 
 ![System Overview](images/overview.jpg)
-
-### LCD Display
-
-![LCD Display](images/lcd_display.jpg)
 
 ### Soil Moisture Sensor
 
@@ -88,17 +111,18 @@ This hysteresis design prevents frequent ON/OFF switching.
 
 ## Future Improvements
 
-* ESP32 WiFi integration
-* Web dashboard monitoring
-* Mobile notifications
-* Temperature and humidity monitoring
+* ESP32 WiFi Dashboard
+* Mobile monitoring
+* Temperature and humidity sensing
 * Cloud data logging
+* Push notifications
+* Solar-powered operation
 
 ---
 
 ## Author
 
-Phạm Bảo Quân
+Pham Bao Quan
 
 ---
 
